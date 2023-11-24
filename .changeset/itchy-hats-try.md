@@ -2,4 +2,4 @@
 "@andersgee/create-edge-stack": minor
 ---
 
-init
+initial release
