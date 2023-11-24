@@ -1,0 +1,43 @@
+{
+	"name": "@andersgee/create-edge-stack",
+	"author": "andersgee",
+	"description": "Create edge stack",
+	"license": "MIT",
+	"version": "0.0.1",
+	"type": "module",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"files": [
+		"dist",
+		"package.json",
+		"README.md"
+	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/andersgee/create-edge-stack"
+	},
+	"scripts": {
+		"start": "node dist/index.js",
+		"build": "rm -rf ./dist && tsc",
+		"bs": "pnpm build && pnpm start",
+		"release": "pnpm run build && changeset publish",
+		"lint": "eslint src --ext .ts"
+	},
+	"bin": {
+		"create-edge-stack": "./dist/index.js"
+	},
+	"devDependencies": {
+		"@changesets/cli": "^2.26.2",
+		"@types/eslint": "^8.44.7",
+		"@types/node": "^20.9.3",
+		"@typescript-eslint/eslint-plugin": "^6.12.0",
+		"@typescript-eslint/parser": "^6.12.0",
+		"eslint": "^8.54.0",
+		"prettier": "^3.1.0",
+		"typescript": "5.2.2"
+	},
+	"dependencies": {
+		"@clack/prompts": "^0.7.0",
+		"execa": "^8.0.1"
+	}
+}
