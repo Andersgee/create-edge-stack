@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { join } from "path";
 import { cancel, intro, isCancel, outro, spinner, text } from "@clack/prompts";
-import { existsSync } from "fs";
+import * as fs from "fs";
 
 async function main() {
 	try {
@@ -14,7 +14,7 @@ async function main() {
 			//initialValue: "edge-stack",
 			validate: (srr) => {
 				if (srr.length === 0) return `Project name is required!`;
-				if (existsSync(join(cwd, srr))) return `${srr} already exists, pick a different name.`;
+				if (fs.existsSync(join(cwd, srr))) return `${srr} already exists, pick a different name.`;
 			},
 		});
 		if (isCancel(projectName)) {
@@ -27,7 +27,7 @@ async function main() {
 		const s = spinner();
 		s.start("Setting up project");
 		await execa("git", ["clone", "git@github.com:Andersgee/edge-stack.git", projectName]);
-		await execa("rm", ["-rf", ".git"], { cwd: projectDir });
+		fs.rm(join(projectDir, ".git"), { force: true, recursive: true }, (_err) => void {});
 		await execa("git", ["init"], { cwd: projectDir });
 		await execa("npm", ["pkg", "set", `name=${projectName}`], { cwd: projectDir });
 		await execa("npm", ["pkg", "set", "version=0.0.1"], { cwd: projectDir });
